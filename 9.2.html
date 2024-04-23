@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sotikov</title>
+</head>
+<body>
+<form id="reverseForm">
+    <label for="arrayInput">Ввод элементов массива, разделенных запятыми:</label><br>
+    <input type="text" id="arrayInput" name="arrayInput" required><br>
+    <button type="submit">Переставить в обратном порядке</button>
+</form>
+<div id="result"></div>
+
+<script>
+    const reverseForm = document.getElementById('reverseForm');
+    const resultDiv = document.getElementById('result');
+
+    reverseForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const arrayInput = document.getElementById('arrayInput').value;
+        const arr = arrayInput.split(',').map(Number);
+
+        const reversedArr = reverseRange(arr);
+
+        resultDiv.textContent = `Обратный массив: ${reversedArr.join(', ')}`;
+    });
+
+    function reverseRange(arr) {
+        let min = arr[0];
+        let max = arr[0];
+        let minIndex = 0;
+        let maxIndex = 0;
+
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
+                minIndex = i;
+            }
+            if (arr[i] > max) {
+                max = arr[i];
+                maxIndex = i;
+            }
+        }
+
+        let left = minIndex;
+        let right = maxIndex;
+        while (left < right) {
+            [arr[left], arr[right]] = [arr[right], arr[left]];
+            left++;
+            right--;
+        }
+
+        return arr;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sotikov</title>
+</head>
+<body>
+<form id="sumForm">
+  <label for="arrayInput">Ввод элементов массива:</label><br>
+  <input type="text" id="arrayInput" name="arrayInput" required><br>
+  <label for="KInput">Ввод K:</label><br>
+  <input type="number" id="KInput" name="KInput" min="1" required><br>
+  <label for="LInput">Ввод L:</label><br>
+  <input type="number" id="LInput" name="LInput" min="1" required><br>
+  <button type="submit">Посчитать сумму</button>
+</form>
+<div id="result"></div>
+
+<script>
+  let sumForm = document.getElementById('sumForm');
+  let resultDiv = document.getElementById('result');
+
+  sumForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    let arrayInput = document.getElementById('arrayInput').value;
+    let KInput = document.getElementById('KInput').value;
+    let LInput = document.getElementById('LInput').value;
+
+    let arr = arrayInput.split(',').map(Number);
+    let K = parseInt(KInput);
+    let L = parseInt(LInput);
+
+    let sum = sumArrayExceptRange(arr, K, L);
+
+    resultDiv.textContent = `Сумма: ${sum}`;
+  });
+
+  function sumArrayExceptRange(arr, K, L) {
+    let sum = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+
+      if (i < K - 1 || i > L - 1) {
+        sum += arr[i];
+      }
+    }
+
+    return sum;
+  }
+</script>
+</body>
+</html>
